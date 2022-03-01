@@ -5,7 +5,7 @@ void Run(params string[] args)
     var letters = args.Any() ? args[0] : Input("Enter letters", out _);
     var solver = new Solver(letters);
     var results = new List<List<string>>();
-    var maxWords = 4;
+    var maxWords = 3;
     
     DFS(solver, maxWords, ref results);
 }
@@ -62,9 +62,9 @@ internal class Solver
     public Solver(string letters)
     {
         mAllWords = mAllWords.Concat(File.ReadAllLines("5-letter-words.txt")).ToList();
-        mAllWords = mAllWords.Concat(File.ReadAllLines("6-letter-words.txt")).ToList();
-        mAllWords = mAllWords.Concat(File.ReadAllLines("7-letter-words.txt")).ToList();
-        mAllWords = mAllWords.Concat(File.ReadAllLines("8-letter-words.txt")).ToList();
+        // mAllWords = mAllWords.Concat(File.ReadAllLines("6-letter-words.txt")).ToList();
+        // mAllWords = mAllWords.Concat(File.ReadAllLines("7-letter-words.txt")).ToList();
+        // mAllWords = mAllWords.Concat(File.ReadAllLines("8-letter-words.txt")).ToList();
         mAllWords = mAllWords.Shuffle().Select(w => w.ToUpper()).ToList();
         mLetters = letters.ToUpper().ToArray();
     }
