@@ -8,8 +8,6 @@ void Run(params string[] args)
     var maxWords = 4;
     
     DFS(solver, maxWords, ref results);
-
-    File.WriteAllLines("output.txt", results.Select(r => string.Join(", ", r)));
 }
 
 void DFS(Solver solver, int maxWords, ref List<List<string>> results)
@@ -53,7 +51,7 @@ string Input(string promptMessage, out bool isExit)
 
 internal class Solver
 {
-    private readonly List<string> mAllWords = File.ReadAllLines("5-letter-words.txt").Shuffle().Select(w => w.ToUpper()).ToList();
+    private readonly List<string> mAllWords = new();
     private readonly char[] mLetters;
     private readonly List<string> mWords = new();
 
@@ -63,13 +61,18 @@ internal class Solver
 
     public Solver(string letters)
     {
+        mAllWords = mAllWords.Concat(File.ReadAllLines("5-letter-words.txt")).ToList();
+        mAllWords = mAllWords.Concat(File.ReadAllLines("6-letter-words.txt")).ToList();
+        mAllWords = mAllWords.Concat(File.ReadAllLines("7-letter-words.txt")).ToList();
+        mAllWords = mAllWords.Concat(File.ReadAllLines("8-letter-words.txt")).ToList();
+        mAllWords = mAllWords.Shuffle().Select(w => w.ToUpper()).ToList();
         mLetters = letters.ToUpper().ToArray();
     }
 
     public void RegisterWord(string word)
     {
-        ValidateWord(word);
         word = word.ToUpper();
+        ValidateWord(word);
 
         mWords.Add(word);
     }
